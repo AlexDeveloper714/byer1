@@ -1,4 +1,5 @@
 
+import java.io.*;
 import java.util.regex.*;
 
 public class boyerInvertido {
@@ -6,15 +7,20 @@ public class boyerInvertido {
     public static String textoOriginal = "";
     public static String textoModificado = "";
     public static String textoInverso = "";
+    public static int Lineas;
 
-    public String resultadoTexto(String texto, String patron_dado) {
+    public String resultadoTexto(String texto, String patron_dado) throws FileNotFoundException {
         textoOriginal = "";
         textoInverso = textoOriginal;
         textoModificado = textoInverso;
-        String regularEx = "(^" + patron_dado + ")";
+        leerLineas(texto);
+        textoOriginal=obtenerDatos(texto);
+        //"^[aA]bc.*"
+        String regularEx = "^"+patron_dado+".*";
         System.out.println(regularEx);
+        System.out.println(textoOriginal);
         Pattern patron = Pattern.compile(regularEx);
-        Matcher encaja = patron.matcher(texto);
+        Matcher encaja = patron.matcher(textoOriginal);
         System.out.println("lookingAt(): "+encaja.lookingAt());
         System.out.println("matches(): "+encaja.matches());
         if (encaja.matches()) {
@@ -49,4 +55,61 @@ public class boyerInvertido {
         System.out.println(cantidad);
         return cantidad;
     }
+    
+    
+    public static void leerLineas(String ruta) throws FileNotFoundException {
+        File archivo = null;
+        FileReader fr = null;
+        BufferedReader br = null;
+        archivo = new File(ruta);
+        fr = new FileReader(archivo);
+        br = new BufferedReader(fr);
+        try {
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                int longitud = 0;
+                if (longitud < linea.length()) {
+                    longitud = linea.length();
+                }
+                Lineas++;
+            }
+            br.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+//OK
+
+    public static String obtenerDatos(String ruta) throws FileNotFoundException {
+        File archivo = null;
+        FileReader fr = null;
+        BufferedReader br = null;
+        archivo = new File(ruta);
+        fr = new FileReader(archivo);
+        br = new BufferedReader(fr);
+        String linea;
+        String texto = "";
+        try {
+
+            int cantidadLineas = 0;
+            while ((linea = br.readLine()) != null) {
+                if (cantidadLineas < Lineas) {
+                    texto += linea + "\n";
+                }
+                cantidadLineas++;
+            }
+            br.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return texto;
+    }
+//OK
+
 }

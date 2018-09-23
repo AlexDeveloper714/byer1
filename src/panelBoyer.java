@@ -151,10 +151,17 @@ public class panelBoyer extends javax.swing.JFrame {
         String ruta = archivoTxt.getText();
         boyerInvertido boyerInvertir= new boyerInvertido();
         if (!patron.equals("") && !ruta.equals("")) {
-            boyerInvertir.resultadoTexto(ruta, patron);
+            try {
+                boyerInvertir.resultadoTexto(ruta, patron);
+                originalArea.setText(boyerInvertido.textoOriginal);
+                copiaArea.setText("");
+                salidaArea.setText(boyerInvertir.resultadoTexto(ruta, patron));
 //            originalArea.setText(BoyerMoore.textoOriginal);
 //            copiaArea.setText(BoyerMoore.textoCopia);
 //            salidaArea.setText(BoyerMoore.salidaTexto);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(panelBoyer.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else {
 //            salidaArea.setText("Digita el patrón o verifica la ruta");
 //            copiaArea.setText(boyerInvertir.resultadoTexto(ruta, patron));
