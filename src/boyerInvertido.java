@@ -8,41 +8,55 @@ public class boyerInvertido {
     public static String textoModificado = "";
     public static String textoInverso = "";
     public static int Lineas;
-    public static int cantidadApariciones=0;
+    public static int cantidadApariciones = 0;
 
     public String resultadoTexto(String texto, String patron_dado) throws FileNotFoundException {
         textoOriginal = "";
         textoInverso = textoOriginal;
         textoModificado = textoInverso;
-        cantidadApariciones=0;
+        cantidadApariciones = 0;
         leerLineas(texto);
-        textoOriginal=obtenerDatos(texto);
+        textoOriginal = obtenerDatos(texto);
         //"^[aA]bc.*"
-        String regularEx = "(^"+patron_dado+".*)";
+        String regularEx = "(^" + patron_dado + ".*)";
         System.out.println(regularEx);
         System.out.println(textoOriginal);
         Pattern patron = Pattern.compile(regularEx);
         Matcher encaja = patron.matcher(textoOriginal);
-        System.out.println("lookingAt(): "+encaja.lookingAt());
-        System.out.println("matches(): "+encaja.matches());
+        System.out.println("lookingAt(): " + encaja.lookingAt());
+        System.out.println("matches(): " + encaja.matches());
         if (encaja.lookingAt()) {
             revisarInversos(textoOriginal);
-            cantidadApariciones=contarCaracteres(patron_dado, textoOriginal);
+            cantidadApariciones = contarCaracteres(patron_dado, textoOriginal);
             return "Cumples con los requisitos: "
-                    + "cantidad apariciones: " + cantidadApariciones;
+                    + "cantidad apariciones: " + cantidadApariciones +" "+verificarPalindromo(patron_dado);
         } else {
             return "No cumples con los requisitos";
         }
     }
 
     public String revisarInversos(String original) {
-        
-        for (int i = original.length()-1; i >=0 ; i--) {
+
+        for (int i = original.length() - 1; i >= 0; i--) {
             textoInverso += original.charAt(i);
         }
         System.out.println(textoInverso);
         textoModificado = textoInverso;
         return "";
+    }
+
+    public static String verificarPalindromo(String palindrome) {
+        String palindromo = "";
+        for (int i = palindrome.length() - 1; i > 0; i--) {
+            palindromo += palindrome.charAt(i);
+        }
+        if (palindromo.contains(palindrome)) {
+
+            return "Si es palindrome";
+        } else {
+
+            return "No es palindrome";
+        }
     }
 
     public static int contarCaracteres(String patron, String texto) {
@@ -58,8 +72,7 @@ public class boyerInvertido {
         System.out.println(cantidad);
         return cantidad;
     }
-    
-    
+
     public static void leerLineas(String ruta) throws FileNotFoundException {
         File archivo = null;
         FileReader fr = null;
