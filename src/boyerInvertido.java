@@ -8,11 +8,13 @@ public class boyerInvertido {
     public static String textoModificado = "";
     public static String textoInverso = "";
     public static int Lineas;
+    public static int cantidadApariciones=0;
 
     public String resultadoTexto(String texto, String patron_dado) throws FileNotFoundException {
         textoOriginal = "";
         textoInverso = textoOriginal;
         textoModificado = textoInverso;
+        cantidadApariciones=0;
         leerLineas(texto);
         textoOriginal=obtenerDatos(texto);
         //"^[aA]bc.*"
@@ -25,8 +27,9 @@ public class boyerInvertido {
         System.out.println("matches(): "+encaja.matches());
         if (encaja.lookingAt()) {
             revisarInversos(textoOriginal);
-            contarCaracteres(patron_dado, textoOriginal);
-            return "Cumples con los requisitos: " + texto;
+            cantidadApariciones=contarCaracteres(patron_dado, textoOriginal);
+            return "Cumples con los requisitos: "
+                    + "cantidad apariciones: " + cantidadApariciones;
         } else {
             return "No cumples con los requisitos";
         }
