@@ -16,15 +16,14 @@ public class boyerInvertido {
         leerLineas(texto);
         textoOriginal=obtenerDatos(texto);
         //"^[aA]bc.*"
-        String regularEx = "^"+patron_dado+".*";
+        String regularEx = "(^"+patron_dado+".*)";
         System.out.println(regularEx);
         System.out.println(textoOriginal);
         Pattern patron = Pattern.compile(regularEx);
         Matcher encaja = patron.matcher(textoOriginal);
         System.out.println("lookingAt(): "+encaja.lookingAt());
         System.out.println("matches(): "+encaja.matches());
-        if (encaja.matches()) {
-            textoOriginal = texto;
+        if (encaja.lookingAt()) {
             revisarInversos(textoOriginal);
             contarCaracteres(patron_dado, textoOriginal);
             return "Cumples con los requisitos: " + texto;
@@ -34,8 +33,9 @@ public class boyerInvertido {
     }
 
     public String revisarInversos(String original) {
-        for (int i = 0; i < original.length(); i++) {
-            textoInverso += original.charAt(original.length() - i);
+        
+        for (int i = original.length()-1; i >=0 ; i--) {
+            textoInverso += original.charAt(i);
         }
         System.out.println(textoInverso);
         textoModificado = textoInverso;

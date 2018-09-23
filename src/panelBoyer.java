@@ -154,7 +154,7 @@ public class panelBoyer extends javax.swing.JFrame {
             try {
                 boyerInvertir.resultadoTexto(ruta, patron);
                 originalArea.setText(boyerInvertido.textoOriginal);
-                copiaArea.setText("");
+                copiaArea.setText(boyerInvertido.textoInverso);
                 salidaArea.setText(boyerInvertir.resultadoTexto(ruta, patron));
 //            originalArea.setText(BoyerMoore.textoOriginal);
 //            copiaArea.setText(BoyerMoore.textoCopia);
